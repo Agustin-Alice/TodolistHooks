@@ -1,32 +1,37 @@
-import { Button } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
-import { FormControl } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
+import React, { useState } from 'react';
 
 let count = 0;
 
 const TodoItemsCreators = (props) =>  {
-
+    const [newItemCreated, setNewItemCreated] = useState()
     const upload = (event) => {
         event.preventDefault()
         count = count + 1
-        const obj = {name: event.target[0].value , id: count}
+        const obj = {name: newItemCreated , id: count}
         props.onCreate(obj)
+        setNewItemCreated('')
     }
-    
+
+    const onTodoChange = (e) => {
+        setNewItemCreated(e.target.value)
+    }
+
     return(
         <div>
             <form className = 'create' onSubmit = {upload}>
-                <input
+                <TextField
                 type = 'text'
+                onChange = {onTodoChange}
+                value = {newItemCreated}
                 />
-                <button>Submit</button> 
+                <Button
+                type = 'submit'
+                >Submit</Button> 
             </form>    
         </div>
     )
-
-
 }
-
     
 export default TodoItemsCreators ;
 

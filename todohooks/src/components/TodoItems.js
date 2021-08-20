@@ -1,45 +1,58 @@
-import { Button } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
+import { Button, TextField } from '@material-ui/core';
+
 const TodoItems = (props) => {
-    function edit(e) {
-        e.preventDefault()
-        const newValue = prompt('?') 
-        props.handleTodo(newValue, e.target.id)
-        
+    function edit(id) {
+            const newValue = prompt('?')
+            props.handleTodo(newValue, id)
+        // console.log(newValue)
+        // e.id es un string
     }
-
-    // function edit(e) {
-    //     e.preventDefault()
-    //     let newValue = prompt('?') 
-    //     newValue = {[e.target.id]:{name: newValue, id : parseInt(e.target.id)}}
-    //     console.log(newValue)
-    //     props.handleTodo(newValue)
-        
-    // }
-
 
     const items = Object.keys(props.todos).map((key) => {
         return (
-            <div>
-                <input
-                value = {props.todos[key].name}
-                />
-                <button
-                // variant = 'outlined'
-                // size = 'small'
-                // color = 'primary'
-                onClick = {edit}
-                id = {key}
-                >Edit
-                </button>
-            </div>
+            <Todoitem
+            todo= {props.todos[key]}
+            onEdit = {edit}
+            />
         )
     })
     return items
-    // debugger;
-
 }
 
 export default TodoItems;
 
 // {props:{name: 'asdd' count: 1}}
+const Todoitem = (props) => {
+   const {todo,onEdit} = props
+
+   function edit() {
+       onEdit(todo.id)
+   }
+   
+    return (
+            <div key={todo.id}>
+                <TextField
+                    value = {todo.name}
+                />
+                <Button
+                    variant = 'outlined'
+                    color = 'primary'
+                    onClick = {edit}
+                >Edit
+                </Button>
+            </div> 
+    )       
+            
+}
+
+// <div key={key}>
+//                 <TextField
+//                     value = {props.todos[key].name}
+//                 />
+//                 <Button
+//                     variant = 'outlined'
+//                     color = 'primary'
+//                     onClick = {edit(key)}
+//                 >Edit
+//                 </Button>
+//              </div>

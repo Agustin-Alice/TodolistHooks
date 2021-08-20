@@ -5,17 +5,19 @@ import TodoItems from './components/TodoItems'
 
 
 const App = () =>  {
-  const [todos, setTodos] = useState({})
+  const [todos, setTodos] = useState([])
   const carry = (item) => {
     setTodos(prevState => ({...prevState, [item.id]: item}))
   }
 
   const edit = (newTodo, id) => {
     let fix = {name: newTodo, id: id}
+    console.log(id)
     setTodos(prevState => ({...prevState, [id]: fix }))
   }
-
+  console.log('todos', todos)
   return (
+  
     <div className="App">
       <section className="App-right">
         <TodoItemsCreators
@@ -31,7 +33,6 @@ const App = () =>  {
       </section>
     </div>
   )
-  
 }
 
 export default App;
